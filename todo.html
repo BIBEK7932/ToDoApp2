@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+</head>
+<body>
+    <div class="app">
+        <div class="left-pane">
+            <h1>Tasks</h1>
+            <ul id="task-list"></ul>
+        </div>
+        <div class="right-pane">
+            <h1>Add Task</h1>
+            <form id="task-form">
+                <input type="text" id="task-input" placeholder="Enter your task" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .left-pane {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .right-pane {
+            flex: 1;
+            padding: 20px;
+            background-color: #e5e5e5;
+        }
+        
+        h1 {
+            font-size: 20px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        li .task {
+            flex: 1;
+            word-wrap: break-word;
+        }
+        
+        li button {
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const taskList = document.getElementById('task-list');
+            const taskForm = document.getElementById('task-form');
+            const taskInput = document.getElementById('task-input');
+        
+            taskForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+        
+                const taskText = taskInput.value.trim();
+                if (taskText === '') {
+                    alert('Please enter a task.');
+                    return;
+                }
+                const taskItem = document.createElement('li');
+                taskItem.innerHTML = `
+                    <span class="task">${taskText}</span>
+                    <button class="delete">Delete</button>
+                `;
+                const deleteButton = taskItem.querySelector('.delete');
+                deleteButton.addEventListener('click', function () {
+                    taskItem.remove();
+                });
+                taskList.appendChild(taskItem);
+                taskInput.value = '';
+            });
+        });
+        
+    </script>
+
+</body>
+</html>
